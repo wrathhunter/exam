@@ -1,0 +1,22 @@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="profile.component.css">
+
+<mat-card *ngIf="user">
+  <!-- {{user|json}} -->
+  <mat-card-content>
+
+    <!-- <hr> -->
+    <div class="profile-card">
+      <img class="profile-pic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg/1200px-Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg" alt="">
+      <p>First Name:{{user.firstName}}</p>
+      <p>Last Name:{{user.lastName}}</p>
+      <p>Email:{{user.email}}</p>
+      <p>Phone No:{{user.phoneNo}}</p>
+      <p>Status:{{user.enabled?"Active":"Inactive"}}</p>
+      <button type="button" class="btn upd btn-warning">Update</button>
+    </div>
+
+  </mat-card-content>
+</mat-card>
