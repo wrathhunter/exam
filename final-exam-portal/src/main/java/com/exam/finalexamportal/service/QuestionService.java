@@ -13,4 +13,5 @@ public interface QuestionService {
 	public Questions createQuestion(Questions question,String quizName,String examCategoryName,String examName);
 	public Questions updateQuestion(Questions question, String quizName,String examCategoryName,String examName);
 	public void deleteQuestion(Questions question, String quizName,String examCategoryName,String examName);
+	public Set<Questions> getQuestions(String quizName,String examCategoryName,String examName);
 }

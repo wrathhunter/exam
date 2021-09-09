@@ -1,9 +1,12 @@
 package com.exam.finalexamportal.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,5 +39,10 @@ public class QuestionController {
 	public ResponseEntity<?> deleteQuestion(@RequestBody Questions question,@PathVariable("quizname") String quizName,@PathVariable("examCategoryName") String examCategoryName,@PathVariable("examName") String examName)  {
 		questionService.deleteQuestion(question, quizName, examCategoryName, examName);
 		return ResponseEntity.ok("question removed");
+	}
+	@GetMapping(value = "/getquestions/{quizname}/{examCategoryName}/{examName}")
+	public ResponseEntity<?> getQuestion(@PathVariable("quizname") String quizname,@PathVariable("examCategoryName") String examCategoryName,@PathVariable("examName") String examName)  {
+		Set<Questions> Questions=questionService.getQuestions(quizname, examCategoryName, examName);
+		return ResponseEntity.ok(Questions);
 	}
 }

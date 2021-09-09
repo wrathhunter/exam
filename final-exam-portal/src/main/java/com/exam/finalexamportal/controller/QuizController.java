@@ -63,6 +63,17 @@ public class QuizController {
 		java.util.Collections.shuffle(newList);
 		return ResponseEntity.ok(newList);
 	}
-	
+	@GetMapping(value = "/getquestion/{quizid}")
+	public ResponseEntity<?> getQuestion(@PathVariable("quizid") String quizid)  {
+		Set<Questions> newQuestions=quizService.getQuestionOfQuiz(quizid);
+		List<Questions> newList = newQuestions.stream().collect(Collectors.toList());
+		java.util.Collections.shuffle(newList);
+		return ResponseEntity.ok(newList);
+	}
+	@GetMapping(value = "/getexactquiz/{quizid}")
+	public ResponseEntity<?> getexactquiz(@PathVariable("quizid") String quizid)  {
+		Quiz quiz=quizService.getExactQuiz(quizid);
+		return ResponseEntity.ok(quiz);
+	}
 	
 }

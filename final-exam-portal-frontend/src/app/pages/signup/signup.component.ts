@@ -15,11 +15,11 @@ export class SignupComponent implements OnInit {
   successMessage: string | undefined;
 
   constructor(private UserService: UserService,private _snackBar: MatSnackBar) { }
- 
- 
+
+
 
   public user = {
-    userName: '',
+    username: '',
     password: '',
     firstName: '',
     lastName: '',
@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   formSubmit() {

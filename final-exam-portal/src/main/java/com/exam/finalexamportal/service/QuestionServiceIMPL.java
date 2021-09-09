@@ -167,6 +167,31 @@ public class QuestionServiceIMPL implements QuestionService{
 		}
 	}
 
+	@Override
+	public Set<Questions> getQuestions(String quizName, String examCategoryName, String examName) {
+		// TODO Auto-generated method stub
+		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
+		Set<Examination> examinations=user.getExaminations();
+		for (Examination examination : examinations) {
+			if(examination.getName().equals(examName))
+			{
+				for (ExaminationCategory examinationCategory : examination.getExaminationCategories()) {
+					if(examinationCategory.getCategoryTitle().equals(examCategoryName))
+					{
+						for (Quiz quizs : examinationCategory.getQuizzes()) {
+							if(quizs.getQuizTitle().equals(quizName))
+							{
+								return quizs.getQuestions();
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	
 	
 

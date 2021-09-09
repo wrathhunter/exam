@@ -17,4 +17,6 @@ public interface QuizService {
 	public Set<Quiz> getQuizs(String examCategoryName, String examName);
 	public Quiz getQuiz(String quizName, String examCategoryName, String examName);
 	public Set<Questions> getQuestionsOfQuiz(String quizName, String examCategoryName, String examName);
+	public Set<Questions> getQuestionOfQuiz(String quizId);
+	public Quiz getExactQuiz(String quizId);
 }

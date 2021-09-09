@@ -1,5 +1,6 @@
 package com.exam.finalexamportal.service;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.exam.finalexamportal.model.exam.Questions;
 import com.exam.finalexamportal.model.exam.Quiz;
 import com.exam.finalexamportal.repository.ExamCategoryRepository;
 import com.exam.finalexamportal.repository.ExaminationRepository;
+import com.exam.finalexamportal.repository.QuestionsRepository;
 import com.exam.finalexamportal.repository.QuizRepository;
 import com.exam.finalexamportal.repository.UserRepository;
 
@@ -30,6 +32,8 @@ public class QuizServiceIMPL implements QuizService{
 	private ExaminationRepository examinationRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private QuestionsRepository questionsRepository;
 	@Override
 	public Quiz addQuiz(Quiz quiz,String examCategoryName,String examName) {
 		// TODO Auto-generated method stub
@@ -197,6 +201,20 @@ public class QuizServiceIMPL implements QuizService{
 			}
 		}
 		return null;
+	}
+	@Override
+	public Set<Questions> getQuestionOfQuiz(String quizId) {
+		// TODO Auto-generated method stub
+		Optional<Quiz> newQuiz=quizRepository.findById(quizId);
+		Quiz quiz=newQuiz.orElseThrow();
+		return quiz.getQuestions();
+	}
+	@Override
+	public Quiz getExactQuiz(String quizId) {
+		// TODO Auto-generated method stub
+		Optional<Quiz> newQuiz=quizRepository.findById(quizId);
+		Quiz quiz=newQuiz.orElseThrow();
+		return quiz;
 	}
 
 	
