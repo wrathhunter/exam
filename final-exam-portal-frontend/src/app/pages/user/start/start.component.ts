@@ -12,15 +12,15 @@ import { QuizServiceService } from 'src/app/services/quiz-service.service';
 })
 export class StartComponent implements OnInit {
   qid: any;
-  // questions:string[]=[""]
   questions: any
   timer: any;
   isSubmit = false;
   marksGot = 0;
   correctAnswers = 0;
   attempted = 0;
-  givenanswer: any
-  quizmaxmarks:any
+  quizmaxmarks: any
+  quizz: any;
+  temp: any
 
 
 
@@ -30,13 +30,13 @@ export class StartComponent implements OnInit {
   ngOnInit(): void {
     this.preventBackButton();
     this.qid = this._route.snapshot.params.quizid;
-    // console.log(this.qid);
     this.quiz.getQuiz(this.qid).subscribe(
       (data: any) => {
-        console.log(data)
-        this.quizmaxmarks=data.quizMaxMarks
+        // console.log(data)
+        this.quizz = data
+        this.quizmaxmarks = data.quizMaxMarks
+        // console.log(this.quizmaxmarks)
       },
-
       (error) => {
         console.log(error);
         this.snak.open('quiz not found', '', { duration: 3000, })
@@ -49,17 +49,14 @@ export class StartComponent implements OnInit {
     this.quiz.getQuestionsOfQuiz(this.qid).subscribe(
       (data: any) => {
         console.log(data)
-        this.questions = data;
+        this.questions = data
+
         this.timer = this.questions.length * 2 * 60;
-          if (Array.isArray(this.questions)) {
-            this.questions.forEach(q => { q['givenAnswer']='' });
-          }
-
-
-
+        // if (Array.isArray(this.questions)) {
+        //   this.questions.forEach(q => { q['quizmaxmarks']=this.quizmaxmarks });
+        // }
         this.startTimer();
       },
-
       (error) => {
         console.log(error);
         this.snak.open('No quiz with this Id.', '', { duration: 3000, })
@@ -84,46 +81,37 @@ export class StartComponent implements OnInit {
       }
     }, 1000);
   }
-  // evalQuiz() {
-  //   //calculation
-  //   //call to sever  to check questions
-  //   this._question.evalQuiz(this.questions).subscribe(
-  //     (data: any) => {
-  //       console.log(data);
-  //       this.marksGot = data.marksGot;
-  //       this.correctAnswers = data.correctAnswers;
-  //       this.attempted = data.attempted;
-  //       this.isSubmit = true;
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  // //   );
-  submitQuiz() {
-
-    this.isSubmit=true
-    console.log(this.questions);
+  evalQuiz() {
+    // let alphas:object[]=[this.questions,this.quizmaxmarks];
+    // this.temp.push(this.questions)
+    // this.temp.push(this.quizmaxmarks)
     if (Array.isArray(this.questions)) {
-      this.questions.forEach(q => {
-        if(q.givenAnswer==q.answer)
-        {
-          this.correctAnswers++
-          let marksSingle=this.quizmaxmarks/this.questions.length
-          this.marksGot+=marksSingle;
-        }
-        if(q.givenAnswer.trim()!='')
-        {
-          this.attempted++
-        }
-       });
+      this.questions.forEach(q => { q.quizmaxmarks = this.quizmaxmarks });
     }
+    this.quiz.evalquiz(this.questions).subscribe(
+      (data: any) => {
+        console.log(data);
+        // this.marksGot=parseFloat(Number(data.marksGot).toFixed(2));
+        this.marksGot=data.marksGot
+        this.correctAnswers=data.correctAnswers
+        this.attempted=data.attempted
+        this.isSubmit=true
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+  }
+  submitQuiz() {
+    this.evalQuiz();
   }
   getFormattedTime() {
     let mm = Math.floor(this.timer / 60);
     let ss = this.timer - mm * 60;
     return `${mm} min : ${ss} sec`;
   }
-  printPage(){
+  printPage() {
     window.print();
   }
 }

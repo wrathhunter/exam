@@ -23,4 +23,8 @@ export class QuizServiceService {
   {
     return this._http.get(`${baseUrl}/quiz/getexactquiz/${quizid}`);
   }
+  public evalquiz(temp:any) {
+    return this._http.post(`${baseUrl}/quiz/evalquiz`, temp);
+  }
+
 }

@@ -2,6 +2,7 @@ package com.exam.finalexamportal.service;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -191,6 +192,15 @@ public class QuestionServiceIMPL implements QuestionService{
 		}
 		return null;
 	}
+
+	@Override
+	public Questions getOneQuestion(String qId) {
+		// TODO Auto-generated method stub
+		Optional<Questions> question=questionsRepository.findById(qId);
+		Questions newQuestion=question.orElseThrow();
+		return newQuestion;
+	}
+	
 
 	
 	

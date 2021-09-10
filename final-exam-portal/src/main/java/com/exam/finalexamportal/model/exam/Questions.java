@@ -2,10 +2,14 @@ package com.exam.finalexamportal.model.exam;
 
 import javax.validation.constraints.NotBlank;
 
+import org.apache.logging.log4j.util.StringBuilderFormattable;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Document
 public class Questions {
@@ -15,10 +19,25 @@ public class Questions {
 	private String content;
 	private String image;
 	private String option1;
+	public String getQuizmaxmarks() {
+		return quizmaxmarks;
+	}
+	public void setQuizmaxmarks(String quizmaxmarks) {
+		this.quizmaxmarks = quizmaxmarks;
+	}
 	private String option2;
 	private String option3;
 	private String option4;
 	private String answer;
+	private String quizmaxmarks;
+	@Transient
+	private String givenanswer;
+	public String getGivenanswer() {
+		return givenanswer;
+	}
+	public void setGivenanswer(String givenanswer) {
+		this.givenanswer = givenanswer;
+	}
 	public Questions() {
 		
 	}
@@ -75,9 +94,11 @@ public class Questions {
 	public void setOption4(String option4) {
 		this.option4 = option4;
 	}
+
 	public String getAnswer() {
 		return answer;
 	}
+
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
