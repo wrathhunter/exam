@@ -19,9 +19,12 @@ public class Quiz {
 	@NotBlank
 	@Indexed(unique=true)
 	private String quizTitle;
+
+
 	private String quizDescription;
 	private Integer quizMaxMarks;
 	private Integer quizNoOfQuestions;
+
 	@DBRef
 	private ExaminationType examinationType;
 	@DBRef

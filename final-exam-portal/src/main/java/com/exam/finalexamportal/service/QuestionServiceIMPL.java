@@ -196,7 +196,7 @@ public class QuestionServiceIMPL implements QuestionService{
 	@Override
 	public Questions getOneQuestion(String qId) {
 		// TODO Auto-generated method stub
-		Optional<Questions> question=questionsRepository.findById(qId);
+ 		Optional<Questions> question=questionsRepository.findById(qId);
 		Questions newQuestion=question.orElseThrow();
 		return newQuestion;
 	}

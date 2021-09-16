@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  // var temp1:any = "John"; 
   temp:any
 
   loginData={
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit {
         //success
         this.snack.open("You are successfully logged in",'',{duration:3000})
         console.log(data);
-        // var temp:any = "John"; 
+        // var temp:any = "John";
         this.temp=data;
         this.login.loginUser(this.temp.token);
 
@@ -65,7 +64,7 @@ export class LoginComponent implements OnInit {
             }
             else{
               this.login.logout();
-             // location.reload();
+            //  location.reload();
             }
 
           }

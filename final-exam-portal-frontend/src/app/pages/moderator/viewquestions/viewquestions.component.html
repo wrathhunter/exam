@@ -4,15 +4,7 @@
 <div class="bootstrap-wrapper">
   <div class="row">
     <div class="col-md-12">
-      <div class="container text-center">
-        <button
-          mat-raised-button
-          color="accent"
-          [routerLink]="'/moderator-dashboard/addquestion/'+ quizname+'/'+ categoryname+'/' + examname "
-        >
-          Add Question
-        </button>
-      </div>
+
 
       <mat-card *ngFor="let q of questions; let i = index" class="mt20">
         <mat-card-content>
@@ -43,6 +35,7 @@
           </div>
         </mat-card-content>
 
+
         <!-- <mat-card-action>
           <button mat-button (click)="deleteQuestion(q.quesId)" color="warn">
             Delete
@@ -50,6 +43,15 @@
           <button mat-button color="primary">Update</button>
         </mat-card-action> -->
       </mat-card>
+      <div class="container text-center my-3">
+        <button
+          mat-raised-button
+          color="accent"
+          [routerLink]="'/moderator-dashboard/addquestion/'+ quizname+'/'+ categoryname+'/' + examname "
+        >
+          Add Question
+        </button>
+      </div>
     </div>
   </div>
 </div>

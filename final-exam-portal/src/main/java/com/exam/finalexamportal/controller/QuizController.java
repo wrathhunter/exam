@@ -3,6 +3,7 @@ package com.exam.finalexamportal.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.exam.finalexamportal.model.exam.Questions;
 import com.exam.finalexamportal.model.exam.Quiz;
+import com.exam.finalexamportal.repository.QuestionsRepository;
+import com.exam.finalexamportal.repository.QuizRepository;
 import com.exam.finalexamportal.service.QuestionService;
 import com.exam.finalexamportal.service.QuizService;
 
@@ -33,6 +36,10 @@ public class QuizController {
 	QuizService quizService;
 	@Autowired
 	QuestionService questionService;
+	@Autowired
+	private QuizRepository quizRepository;
+	@Autowired
+	private QuestionsRepository questionsRepository;
 
 	@PostMapping(value = "/createquiz/{examCategoryName}/{examName}")
 	public ResponseEntity<?> createQuiz(@RequestBody Quiz quiz,
@@ -97,21 +104,13 @@ public class QuizController {
 
 	@PostMapping(value = "/evalquiz")
 	public ResponseEntity<?> evalQuiz(@RequestBody List<Questions> questions) {
-//		System.out.println(questions);
-//		System.out.println("devider");
-//		for(Questions q:questions)
-//		{
-//			System.out.println(q.getQuizmaxmarks());
-//		}
-
-//		List<Questions> questions=(List<Questions>) temp.toArray()[0];
-
 		Double marksGot = (double) 0;
 		Integer correctAnswers = 0;
 		Integer attempted = 0;
 		for (Questions q : questions) {
 			Questions questionss = this.questionService.getOneQuestion(q.getQuestionId());
-
+//			Quiz quiz=quizRepository.findQuizById(q.getQuestionId());
+//			System.out.println(quiz);
 			if (questionss.getAnswer().equals(q.getGivenanswer())) {
 				correctAnswers++;
 				Integer marksSingle = Integer.parseInt(q.getQuizmaxmarks()) / questions.size();
@@ -121,12 +120,10 @@ public class QuizController {
 				attempted++;
 			}
 		}
-		System.out.println("correct answers" + correctAnswers);
 
 		Map<String, Object> mapObject = Map.of("marksGot", marksGot, "correctAnswers", correctAnswers, "attempted",
 				attempted);
 		return ResponseEntity.ok(mapObject);
-//		return null;
 	}
 
 }

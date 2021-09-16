@@ -27,8 +27,10 @@ export class NavbarComponent implements OnInit {
   public logout()
   {
     this.login.logout();
-    window.location.reload();
-    //this.router.navigateByUrl('login');
+    this.user=null;
+    // window.location.reload();
+    this.ngOnInit();
+    this.router.navigateByUrl('');
     this.snack.open('You are successfully logged out','',{duration:3000,})
 
     //window.location.reload();

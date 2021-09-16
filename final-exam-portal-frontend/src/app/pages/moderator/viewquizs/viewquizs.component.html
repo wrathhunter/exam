@@ -14,14 +14,24 @@
   </mat-card-content>
   <mat-card-action>
     <button [routerLink]="'/moderator-dashboard/viewquestion/'+ q.quizTitle+'/'+ categoryname+'/' + examname "  mat-raised-button color="accent">
-      Questions
+      Click Here to see questions
     </button>
-    <button mat-stroked-button color="accent" class="ml20">
+    <button mat-stroked-button color="black" class="ml20">
       Max Marks: {{ q.quizMaxMarks }}
     </button>
-    <button mat-stroked-button color="accent" class="ml20">
-      Questions: {{ q.quizNoOfQuestions }}
+    <button mat-stroked-button color="black" class="ml20">
+      No of questions: {{ q.quizNoOfQuestions }}
     </button>
+    <button (mouseover)="changeText=true" (mouseout)="changeText=false" [cdkCopyToClipboard]="q.quizId" mat-stroked-button color="black" class="ml20">
+      <!-- Generated Id for this quiz: {{ q.quizId }} -->
+      <span *ngIf="!changeText">Generated quiz Id: {{ q.quizId }}</span>
+      <span *ngIf="changeText">Click here to copy generated quiz Id</span>
+    </button>
+    <!-- <div (mouseover)="changeText=true" (mouseout)="changeText=false">
+      <span *ngIf="!changeText">Hide</span>
+      <span *ngIf="changeText">Show</span>
+    </div> -->
+    <!-- <button [cdkCopyToClipboard]="q.quizId">Copy</button> -->
     <!-- <button [routerLink]="'/admin/quiz/' + q.qId" mat-flat-button color="accent" class="ml20">
       Update
     </button> -->
@@ -33,7 +43,7 @@
   </mat-card-action>
 </mat-card>
 
-<div class="container text-center mt20">
+<div class="container text-center mt20 my-3">
   <button [routerLink]="'/moderator-dashboard/addquiz/'+ categoryname+'/' + examname "  mat-raised-button color="accent">
     Add New Quiz
   </button>

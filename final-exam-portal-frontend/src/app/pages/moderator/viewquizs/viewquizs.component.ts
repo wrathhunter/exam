@@ -12,6 +12,7 @@ import { ExamServiceService } from 'src/app/services/exam-service.service';
 })
 export class ViewquizsComponent implements OnInit {
   quizzes:any = [];
+  changeText:any
   constructor(private quizService:QuizServiceService,private _route: ActivatedRoute,private snack:MatSnackBar,private categoryService:CategoryServiceService, private allexams:ExamServiceService) { }
   examname=''
   categoryname=''

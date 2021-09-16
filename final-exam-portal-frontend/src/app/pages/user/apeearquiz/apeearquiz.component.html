@@ -1,18 +1,21 @@
-<h1>Please Enter Quiz Id</h1>
-<mat-card-content>
-  <!-- <form class="mt20" (submit)="formSubmit()"> -->
-    <div class="col-md-6">
-      <!-- option2 -->
-      <mat-form-field class="w100">
-        <mat-label>Quiz Id</mat-label>
-        <input required [(ngModel)]="quizid" name="quizid" type="text" matInput />
-      </mat-form-field>
-    </div>
-    <div> quiz going to be started {{ quizid }} </div>
-    <div class="container text-center">
-      <button mat-raised-button color="accent" [routerLink]="'/start/'+quizid">Submit</button>
-    </div>
-  <!-- </form> -->
-</mat-card-content>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <h1 class="text-center">Please Enter Quiz Id</h1>
+    <mat-card-content class="">
+      <!-- <form class="mt20" (submit)="formSubmit()"> -->
+      <div class="text-center">
+        <!-- option2 -->
+        <mat-form-field class="">
+          <mat-label class="text-center">Quiz Id</mat-label>
+          <input required [(ngModel)]="quizid" name="quizid" type="text" matInput />
+        </mat-form-field>
+      </div>
+      <div class="text-center"> Quiz going to be started {{ quizid }} </div>
+      <div class="container text-center">
+        <button mat-raised-button color="accent" [routerLink]="'/start/'+quizid">Submit</button>
+      </div>
+      <!-- </form> -->
+    </mat-card-content>
+  </mat-card>
+</div>
 <!-- routerLink="/user-dashboard/start" -->
-
