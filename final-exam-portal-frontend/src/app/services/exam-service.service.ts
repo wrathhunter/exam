@@ -15,4 +15,7 @@ export class ExamServiceService {
   public addExam(exam: any) {
     return this._http.post(`${baseUrl}/exam/createexam`, exam);
   }
+  public deleteQuiz(examid:any) {
+    return this._http.delete(`${baseUrl}/exam/deleteexam/${examid}`);
+  }
 }

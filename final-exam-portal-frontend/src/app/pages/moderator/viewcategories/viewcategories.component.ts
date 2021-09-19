@@ -33,7 +33,18 @@ export class ViewcategoriesComponent implements OnInit {
       }
     );
   }
-
+  deleteCategory(categoryTitle:any,examName: any) {
+    this.categoryService.deleteCategory(categoryTitle,examName).subscribe(
+      (data:any) => {
+        this.snack.open('Category deleted successfully', '', { duration: 3000, })
+        console.log(data)
+        this.ngOnInit();
+      },
+      (error) => {
+         console.log(error);
+      }
+    );
+  }
 
 
 }

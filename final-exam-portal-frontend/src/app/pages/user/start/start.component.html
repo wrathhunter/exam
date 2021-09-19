@@ -74,9 +74,7 @@
             <mat-card-content>
               <h1 class="text-center">{{ getFormattedTime() }}</h1>
               <mat-spinner mode="determinate" color="accent" style="margin: auto"
-                [value]="(timer / (this.questions.length * 2 * 60)) * 100"></mat-spinner>
-                 <mat-spinner mode="determinate" color="accent" style="margin: auto"
-                [value]="(timer / (this.quizz.length * 2 * 60)) * 100"></mat-spinner>
+                [value]="(timer / (time * 2 * 60)) * 100"></mat-spinner>
             </mat-card-content>
           </mat-card>
         </div>
@@ -95,6 +93,7 @@
             <h1>Marks Got : <b> {{ marksGot }} </b></h1>
             <h1>Correct Answers :<b> {{ correctAnswers }} </b></h1>
             <h1>Questions Attempted :<b>{{ attempted }} </b></h1>
+            <h1>No of attempts already made :<b>{{ noOfAttemptsOnQuizInteger }} </b></h1>
           </mat-card-content>
           <mat-card-actions class="text-center">
             <button (click)="printPage()" mat-raised-button color="primary">Print</button>

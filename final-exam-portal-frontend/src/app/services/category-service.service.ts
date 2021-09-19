@@ -15,4 +15,7 @@ export class CategoryServiceService {
   public addcategory(category: any,examname:string) {
     return this._http.post(`${baseUrl}/examcategory/createexamcategory/${examname}`, category);
   }
+  public deleteCategory(categoryName:any,examName:any) {
+    return this._http.delete(`${baseUrl}/examcategory/deleteexamcategory/${categoryName}/${examName}`);
+  }
 }

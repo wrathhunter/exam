@@ -58,11 +58,15 @@ public class QuestionServiceIMPL implements QuestionService{
 								newQuestion.setOption2(question.getOption2());
 								newQuestion.setOption3(question.getOption3());
 								newQuestion.setOption4(question.getOption4());
+								newQuestion.setCreaterId(user.getId());
+								newQuestion.setQuizIdOfTheQuestion(quizs.getQuizId());
+								newQuestion.setExamIdOfTheQuestion(examination.getId());
+								newQuestion.setCategoryIdOfTheQuestion(examinationCategory.getCategoryId());
 								quizs.getQuestions().add(newQuestion);
 								quizs.setQuestions(quizs.getQuestions());
 								examination.getExaminationCategories().add(examinationCategory);
 								examination.setExaminationCategories(examination.getExaminationCategories());
-								user.getExaminations().add(examination);
+//								user.getExaminations().add(examination);
 								user.setExaminations(user.getExaminations());
 								Questions newCreatedQuestions=questionsRepository.save(newQuestion);
 								quizRepository.save(quizs);
@@ -128,12 +132,25 @@ public class QuestionServiceIMPL implements QuestionService{
 	}
 
 	@Override
-	public void deleteQuestion(Questions question, String quizName, String examCategoryName, String examName) {
+	public void deleteQuestion(String questionId, String quizName, String examCategoryName, String examName) throws Exception {
 		// TODO Auto-generated method stub
-		
+		int count=0;
+		int count1=0;
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
 		Set<Examination> examinations=user.getExaminations();
+		
+		
+		for (Examination examination : examinations) {
+			if (examination.getName().equals(examName)) {
+				count++;
+			}
+		}
+		if (count == 0) {
+			throw new Exception("exam not found");
+		} else {
+		
+		
 		for (Examination examination : examinations) {
 			if(examination.getName().equals(examName))
 			{
@@ -144,7 +161,19 @@ public class QuestionServiceIMPL implements QuestionService{
 							if(quizs.getQuizTitle().equals(quizName))
 							{
 								for (Questions newQuestions : quizs.getQuestions()) {
-									if(newQuestions.getQuestionId().equals(question.getQuestionId()))
+//									if(newQuestions.getQuestionId().equals(questionId))
+//									{
+//										count1++;
+//									}
+//									else {
+//										{
+//											continue;
+//										}
+//									}
+//									if (count1 == 0) {
+//										throw new Exception("question not found");
+//									} else {
+									if(newQuestions.getQuestionId().equals(questionId))
 									{
 										quizs.getQuestions().remove(newQuestions);
 										quizs.setQuestions(quizs.getQuestions());
@@ -157,6 +186,12 @@ public class QuestionServiceIMPL implements QuestionService{
 										examCategoryRepository.save(examinationCategory);
 										examinationRepository.save(examination);
 										userRepository.save(user);
+										break;
+									}
+									else {
+										{
+											continue;
+										}
 									}
 								}
 								
@@ -165,6 +200,7 @@ public class QuestionServiceIMPL implements QuestionService{
 					}
 				}
 			}
+		}
 		}
 	}
 

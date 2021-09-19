@@ -1,7 +1,6 @@
-import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -10,30 +9,26 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isLogedIn=false;
-  user:any;
+  isLogedIn = false;
+  user: any;
+  isDarkTheme: boolean = true;
 
-  constructor(public login:LoginService,private router:Router,private snack:MatSnackBar) { }
+  constructor(public login: LoginService, private router: Router, private snack: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.isLogedIn=this.login.isLoggedIn();
-    this.user=this.login.getUser();
-    this.login.loginStatusSubject.asObservable().subscribe((data)=>{
-      this.isLogedIn=this.login.isLoggedIn();
-      this.user=this.login.getUser();
+    this.isLogedIn = this.login.isLoggedIn();
+    this.user = this.login.getUser();
+    this.login.loginStatusSubject.asObservable().subscribe((data) => {
+      this.isLogedIn = this.login.isLoggedIn();
+      this.user = this.login.getUser();
     })
-    }
-
-  public logout()
-  {
+  }
+  public logout() {
     this.login.logout();
-    this.user=null;
-    // window.location.reload();
+    this.user = null;
     this.ngOnInit();
     this.router.navigateByUrl('');
-    this.snack.open('You are successfully logged out','',{duration:3000,})
-
-    //window.location.reload();
+    this.snack.open('You are successfully logged out', '', { duration: 3000, })
   }
 
 }

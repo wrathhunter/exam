@@ -26,5 +26,8 @@ export class QuizServiceService {
   public evalquiz(temp:any) {
     return this._http.post(`${baseUrl}/quiz/evalquiz`, temp);
   }
+  public deleteQuiz(quizName:any,categoryName:any,examName:any) {
+    return this._http.delete(`${baseUrl}/quiz/deletequiz/${quizName}/${categoryName}/${examName}`);
+  }
 
 }

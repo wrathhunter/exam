@@ -32,5 +32,16 @@ export class ViewquestionsComponent implements OnInit {
         }
       );
     }
-
+    deleteQuestion(questionid:any,quizname:any,categoryname: any,examname:any) {
+      this.question.deleteQuestion(questionid,quizname,categoryname,examname).subscribe(
+        (data:any) => {
+          this.snak.open('Question deleted successfully', '', { duration: 3000, })
+          console.log(data)
+          this.ngOnInit();
+        },
+        (error) => {
+           console.log(error);
+        }
+      );
+    }
 }

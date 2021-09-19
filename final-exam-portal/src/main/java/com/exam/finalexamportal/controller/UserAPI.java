@@ -42,6 +42,7 @@ public class UserAPI {
 		user.setPassword(this.bCryptPaswordEncoder.encode(user.getPassword()));
 		Role role = new Role();
 		role.setName(EmployeeRoleRelation.ROLE_USER);
+		role.setAttachedUserIdString(user.getId());
 		Set<Role> roles = new HashSet<>();
 		roles.add(role);
 		user.setRoles(roles);
@@ -52,6 +53,7 @@ public class UserAPI {
 		user.setPassword(this.bCryptPaswordEncoder.encode(user.getPassword()));
 		Role role = new Role();
 		role.setName(EmployeeRoleRelation.ROLE_MODERATOR);
+		role.setAttachedUserIdString(user.getId());
 		Set<Role> roles = new HashSet<>();
 		roles.add(role);
 		user.setRoles(roles);

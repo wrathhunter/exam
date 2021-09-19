@@ -1,6 +1,5 @@
 package com.exam.finalexamportal.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -8,6 +7,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,14 +20,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.exam.finalexamportal.model.User;
+import com.exam.finalexamportal.model.exam.Examination;
+import com.exam.finalexamportal.model.exam.ExaminationCategory;
 import com.exam.finalexamportal.model.exam.Questions;
 import com.exam.finalexamportal.model.exam.Quiz;
-import com.exam.finalexamportal.repository.QuestionsRepository;
+import com.exam.finalexamportal.repository.ExamCategoryRepository;
+import com.exam.finalexamportal.repository.ExaminationRepository;
 import com.exam.finalexamportal.repository.QuizRepository;
+import com.exam.finalexamportal.repository.UserRepository;
 import com.exam.finalexamportal.service.QuestionService;
 import com.exam.finalexamportal.service.QuizService;
-
-import io.jsonwebtoken.lang.Collections;
 
 @CrossOrigin
 @RestController
@@ -35,11 +39,15 @@ public class QuizController {
 	@Autowired
 	QuizService quizService;
 	@Autowired
+	UserRepository userRepository;
+	@Autowired
 	QuestionService questionService;
 	@Autowired
-	private QuizRepository quizRepository;
+	QuizRepository quizRepository;
 	@Autowired
-	private QuestionsRepository questionsRepository;
+	ExaminationRepository examinationRepository;
+	@Autowired
+	ExamCategoryRepository examCategoryRepository;
 
 	@PostMapping(value = "/createquiz/{examCategoryName}/{examName}")
 	public ResponseEntity<?> createQuiz(@RequestBody Quiz quiz,
@@ -50,16 +58,17 @@ public class QuizController {
 
 	@PutMapping(value = "/updatequiz/{examCategoryName}/{examName}")
 	public ResponseEntity<?> updateQuiz(@RequestBody Quiz quiz,
-			@PathVariable("examCategoryName") String examCategoryName, @PathVariable("examName") String examName) {
+			@PathVariable("examCategoryName") String examCategoryName, @PathVariable("examName") String examName)
+			throws Exception {
 		Quiz newQuiz = quizService.updateQuiz(quiz, examCategoryName, examName);
 		return ResponseEntity.ok(newQuiz);
 	}
 
 	@DeleteMapping(value = "/deletequiz/{quizname}/{examCategoryName}/{examName}")
 	public ResponseEntity<?> deleteQuiz(@PathVariable("quizname") String quizName,
-			@PathVariable("examCategoryName") String examCategoryName, @PathVariable("examName") String examName) {
+			@PathVariable("examCategoryName") String examCategoryName, @PathVariable("examName") String examName) throws Exception {
 		quizService.deleteQuiz(quizName, examCategoryName, examName);
-		return ResponseEntity.ok("quiz removed");
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/getallquiz/{examCategoryName}/{examName}")
@@ -103,14 +112,69 @@ public class QuizController {
 	}
 
 	@PostMapping(value = "/evalquiz")
-	public ResponseEntity<?> evalQuiz(@RequestBody List<Questions> questions) {
+	public ResponseEntity<?> evalQuiz(@RequestBody List<Questions> questions) throws Exception {
 		Double marksGot = (double) 0;
 		Integer correctAnswers = 0;
 		Integer attempted = 0;
+		String creatorId = null;
+		String quizId = null;
+		String examId = null;
+		String categoryId = null;
+		Integer noOfAttemptsOnQuizInteger=0;
+		for (Questions q : questions) {
+			creatorId = q.getCreaterId();
+			quizId = q.getQuizIdOfTheQuestion();
+			examId = q.getExamIdOfTheQuestion();
+			categoryId = q.getCategoryIdOfTheQuestion();
+			break;
+		}
+		Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+		Quiz quiz = quizOptional.orElseThrow();
+		if (quiz.getNoOfAttempts() == null) {
+			quiz.setNoOfAttempts(0);
+		}
+		noOfAttemptsOnQuizInteger = quiz.getNoOfAttempts() + 1;
+
+		Optional<ExaminationCategory> categoryOptional = examCategoryRepository.findById(categoryId);
+		ExaminationCategory category = categoryOptional.orElseThrow();
+		Optional<Examination> examOptional = examinationRepository.findById(examId);
+		Examination exam = examOptional.orElseThrow();
+		Optional<User> userOptional = userRepository.findById(creatorId);
+		User user=userOptional.orElseThrow();
+
+		quiz.setNoOfAttempts(noOfAttemptsOnQuizInteger);
+		category.setQuizzes(category.getQuizzes());
+		exam.setExaminationCategories(exam.getExaminationCategories());
+		user.setExaminations(user.getExaminations());
+		Quiz updatedQuiz = quizRepository.save(quiz);
+		examCategoryRepository.save(category);
+		examinationRepository.save(exam);
+		userRepository.save(user);
+
+
+
+//		Optional<Examination> examOptional=examinationRepository.findById(examId);
+//		Examination exam=examOptional.orElseThrow();
+//		Optional<ExaminationCategory> categoryOptional=examCategoryRepository.findById(categoryId);
+//		ExaminationCategory category=categoryOptional.orElseThrow();
+//		quizRepository.save(quiz);
+//		
+//		
+//		
+//		category.setQuizzes(category.getQuizzes());
+//		exam.setExaminationCategories(exam.getExaminationCategories());
+//		user.setExaminations(user.getExaminations());
+//		quizRepository.save(quiz);
+//		examCategoryRepository.save(category);
+//		examinationRepository.save(exam);
+//		userRepository.save(user);
+
+		System.out.println("creator id" + creatorId);
+		System.out.println("quiz id" + quizId);
+		System.out.println("quiz attempts"+updatedQuiz.getNoOfAttempts());
+
 		for (Questions q : questions) {
 			Questions questionss = this.questionService.getOneQuestion(q.getQuestionId());
-//			Quiz quiz=quizRepository.findQuizById(q.getQuestionId());
-//			System.out.println(quiz);
 			if (questionss.getAnswer().equals(q.getGivenanswer())) {
 				correctAnswers++;
 				Integer marksSingle = Integer.parseInt(q.getQuizmaxmarks()) / questions.size();
@@ -122,7 +186,7 @@ public class QuizController {
 		}
 
 		Map<String, Object> mapObject = Map.of("marksGot", marksGot, "correctAnswers", correctAnswers, "attempted",
-				attempted);
+				attempted,"noOfAttemptsOnQuizInteger",noOfAttemptsOnQuizInteger);
 		return ResponseEntity.ok(mapObject);
 	}
 

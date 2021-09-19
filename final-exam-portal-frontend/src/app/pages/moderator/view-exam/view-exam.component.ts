@@ -10,24 +10,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./view-exam.component.css']
 })
 export class ViewExamComponent implements OnInit {
-  exams:any = [];
+  exams: any = [];
 
-  constructor(private snack:MatSnackBar,private examService:ExamServiceService, private categoryservice:CategoryServiceService) { }
+  constructor(private router:Router,private snack: MatSnackBar, private examService: ExamServiceService, private categoryservice: CategoryServiceService) { }
   ngOnInit(): void {
 
     this.examService.exams().subscribe(
       (data: any) => {
-        //css
         this.exams = data;
-        console.log(this.exams);
+        // console.log(this.exams);
       },
 
       (error) => {
-        //
-        console.log(error);
-        this.snack.open('Error in loading data','',{duration:3000,})
+        // console.log(error);
+        this.snack.open('Error in loading data', '', { duration: 3000, })
       }
     );
   }
 
+  deleteQuiz(examid: any) {
+    this.examService.deleteQuiz(examid).subscribe(
+      (data:any) => {
+        this.snack.open('Exam deleted successfully', '', { duration: 3000, })
+        console.log(data)
+        this.ngOnInit();
+      },
+      (error) => {
+         console.log(error);
+      }
+    );
+  }
 }
+

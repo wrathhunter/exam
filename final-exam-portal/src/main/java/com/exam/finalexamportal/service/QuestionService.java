@@ -12,7 +12,7 @@ import com.exam.finalexamportal.model.exam.Quiz;
 public interface QuestionService {
 	public Questions createQuestion(Questions question,String quizName,String examCategoryName,String examName);
 	public Questions updateQuestion(Questions question, String quizName,String examCategoryName,String examName);
-	public void deleteQuestion(Questions question, String quizName,String examCategoryName,String examName);
+	public void deleteQuestion(String questionId, String quizName,String examCategoryName,String examName) throws Exception;
 	public Set<Questions> getQuestions(String quizName,String examCategoryName,String examName);
 	public Questions getOneQuestion(String qId);
 }

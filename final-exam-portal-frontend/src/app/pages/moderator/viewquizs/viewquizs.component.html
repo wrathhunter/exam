@@ -22,24 +22,15 @@
     <button mat-stroked-button color="black" class="ml20">
       No of questions: {{ q.quizNoOfQuestions }}
     </button>
+    <button mat-stroked-button color="black" class="ml20">
+      Total No of attempts made on this quiz: {{ q.noOfAttempts }}
+    </button>
     <button (mouseover)="changeText=true" (mouseout)="changeText=false" [cdkCopyToClipboard]="q.quizId" mat-stroked-button color="black" class="ml20">
       <!-- Generated Id for this quiz: {{ q.quizId }} -->
       <span *ngIf="!changeText">Generated quiz Id: {{ q.quizId }}</span>
       <span *ngIf="changeText">Click here to copy generated quiz Id</span>
     </button>
-    <!-- <div (mouseover)="changeText=true" (mouseout)="changeText=false">
-      <span *ngIf="!changeText">Hide</span>
-      <span *ngIf="changeText">Show</span>
-    </div> -->
-    <!-- <button [cdkCopyToClipboard]="q.quizId">Copy</button> -->
-    <!-- <button [routerLink]="'/admin/quiz/' + q.qId" mat-flat-button color="accent" class="ml20">
-      Update
-    </button> -->
-    <!-- <button mat-flat-button color="accent" class="ml20">Attempts</button> -->
-
-    <!-- <button mat-flat-button color="warn" class="ml10" (click)="deleteQuiz(q.qId)">
-      Delete
-    </button> -->
+    <button mat-raised-button color="accent" (click)="deleteQuiz(q.quizTitle,categoryname,examname)">Delete Quiz</button>
   </mat-card-action>
 </mat-card>
 

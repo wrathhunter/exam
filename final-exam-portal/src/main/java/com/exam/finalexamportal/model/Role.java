@@ -8,6 +8,15 @@ public class Role {
   @Id
   private String id;
   private EmployeeRoleRelation name;
+  public String getAttachedUserIdString() {
+	return attachedUserIdString;
+}
+
+public void setAttachedUserIdString(String attachedUserIdString) {
+	this.attachedUserIdString = attachedUserIdString;
+}
+
+private String attachedUserIdString;
 
   public Role() {
 

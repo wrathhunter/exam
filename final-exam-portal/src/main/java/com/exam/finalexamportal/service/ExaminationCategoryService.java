@@ -15,5 +15,5 @@ public interface ExaminationCategoryService {
 	public ExaminationCategory createCategory(ExaminationCategory examinationCategory,String examinationName) throws Exception;
 	public ExaminationCategory updateCategory(ExaminationCategory examinationCategory,String examinationName) throws Exception;
 	public Set<ExaminationCategory> getCategories(String examName) throws Exception;
-	public void deleteCategory(ExaminationCategory examinationCategory,String examinationName)throws Exception;
+	public void deleteCategory(String examinationCategoryName,String examinationName)throws Exception;
 }

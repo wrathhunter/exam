@@ -32,6 +32,10 @@
             </div>
             <mat-divider></mat-divider>
             <p class="mt20"><b>Correct Answer:</b> {{ q.answer }}</p>
+
+            <button mat-raised-button color="accent" (click)="deleteQuestion(q.questionId,quizname,categoryname,examname)">Delete Question</button>
+            <!-- <mat-divider></mat-divider>
+            <p class="mt20"><b>creater:</b> {{ q.createrId }}</p> -->
           </div>
         </mat-card-content>
 

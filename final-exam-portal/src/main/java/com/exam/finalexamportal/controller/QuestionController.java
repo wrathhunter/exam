@@ -3,6 +3,7 @@ package com.exam.finalexamportal.controller;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,10 +36,10 @@ public class QuestionController {
 		Questions newQuestion=questionService.updateQuestion(question, quiz, examCategoryName, examName);
 		return ResponseEntity.ok(newQuestion);
 	}
-	@DeleteMapping(value = "/deletequestion/{quizname}/{examCategoryName}/{examName}")
-	public ResponseEntity<?> deleteQuestion(@RequestBody Questions question,@PathVariable("quizname") String quizName,@PathVariable("examCategoryName") String examCategoryName,@PathVariable("examName") String examName)  {
-		questionService.deleteQuestion(question, quizName, examCategoryName, examName);
-		return ResponseEntity.ok("question removed");
+	@DeleteMapping(value = "/deletequestion/{questionid}/{quizname}/{examCategoryName}/{examName}")
+	public ResponseEntity<?> deleteQuestion(@PathVariable("questionid") String questionId,@PathVariable("quizname") String quizName,@PathVariable("examCategoryName") String examCategoryName,@PathVariable("examName") String examName) throws Exception  {
+		questionService.deleteQuestion(questionId, quizName, examCategoryName, examName);
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 	@GetMapping(value = "/getquestions/{quizname}/{examCategoryName}/{examName}")
 	public ResponseEntity<?> getQuestion(@PathVariable("quizname") String quizname,@PathVariable("examCategoryName") String examCategoryName,@PathVariable("examName") String examName)  {

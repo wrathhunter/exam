@@ -21,9 +21,18 @@ public class Quiz {
 	private String quizTitle;
 
 
+	public Integer getNoOfAttempts() {
+		return noOfAttempts;
+	}
+
+	public void setNoOfAttempts(Integer noOfAttempts) {
+		this.noOfAttempts = noOfAttempts;
+	}
+
 	private String quizDescription;
 	private Integer quizMaxMarks;
 	private Integer quizNoOfQuestions;
+	private Integer noOfAttempts;
 
 	@DBRef
 	private ExaminationType examinationType;

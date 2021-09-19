@@ -21,7 +21,7 @@ import com.exam.finalexamportal.repository.UserRepository;
 
 @Service(value = "quizService")
 @Transactional
-public class QuizServiceIMPL implements QuizService{
+public class QuizServiceIMPL implements QuizService {
 	@Autowired
 	private UsersDetailsServiceIMPL userDetailsServiceImpl;
 	@Autowired
@@ -34,26 +34,26 @@ public class QuizServiceIMPL implements QuizService{
 	private UserRepository userRepository;
 	@Autowired
 	private QuestionsRepository questionsRepository;
+
 	@Override
-	public Quiz addQuiz(Quiz quiz,String examCategoryName,String examName) {
+	public Quiz addQuiz(Quiz quiz, String examCategoryName, String examName) {
 		// TODO Auto-generated method stub
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
-		Set<Examination> examinations=user.getExaminations();
+		Set<Examination> examinations = user.getExaminations();
 		for (Examination examination : examinations) {
-			if(examination.getName().equals(examName))
-			{
+			if (examination.getName().equals(examName)) {
 				for (ExaminationCategory examinationCategory : examination.getExaminationCategories()) {
-					if(examinationCategory.getCategoryTitle().equals(examCategoryName))
-					{
-						Quiz newQuiz=new Quiz(quiz.getActive(),quiz.getQuizTitle(),quiz.getQuizDescription(),quiz.getQuizMaxMarks(),quiz.getQuizNoOfQuestions(),quiz.getExaminationType());
+					if (examinationCategory.getCategoryTitle().equals(examCategoryName)) {
+						Quiz newQuiz = new Quiz(quiz.getActive(), quiz.getQuizTitle(), quiz.getQuizDescription(),
+								quiz.getQuizMaxMarks(), quiz.getQuizNoOfQuestions(), quiz.getExaminationType());
 						examinationCategory.getQuizzes().add(newQuiz);
 						examinationCategory.setQuizzes(examinationCategory.getQuizzes());
 						examination.getExaminationCategories().add(examinationCategory);
 						examination.setExaminationCategories(examination.getExaminationCategories());
 						user.getExaminations().add(examination);
 						user.setExaminations(user.getExaminations());
-						Quiz newCreatedQuiz=quizRepository.save(newQuiz);
+						Quiz newCreatedQuiz = quizRepository.save(newQuiz);
 						examCategoryRepository.save(examinationCategory);
 						examinationRepository.save(examination);
 						userRepository.save(user);
@@ -64,21 +64,32 @@ public class QuizServiceIMPL implements QuizService{
 		}
 		return null;
 	}
+
 	@Override
-	public Quiz updateQuiz(Quiz quiz, String examCategoryName, String examName) {
+	public Quiz updateQuiz(Quiz quiz, String examCategoryName, String examName) throws Exception {
 		// TODO Auto-generated method stub
+//		int count=0;
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
-		Set<Examination> examinations=user.getExaminations();
+		Set<Examination> examinations = user.getExaminations();
+
+//		for (Examination examination : examinations) {
+//			if (examination.getName().equals(examName)) {
+//				count++;
+//			}
+//		}
+//		if(count==0)
+//		{
+//			throw new Exception("exam not found");
+//		}
+//		else {
+
 		for (Examination examination : examinations) {
-			if(examination.getName().equals(examName))
-			{
+			if (examination.getName().equals(examName)) {
 				for (ExaminationCategory examinationCategory : examination.getExaminationCategories()) {
-					if(examinationCategory.getCategoryTitle().equals(examCategoryName))
-					{
+					if (examinationCategory.getCategoryTitle().equals(examCategoryName)) {
 						for (Quiz newQuiz : examinationCategory.getQuizzes()) {
-							if(newQuiz.getQuizTitle().equals(quiz.getQuizTitle()))
-							{
+							if (newQuiz.getQuizTitle().equals(quiz.getQuizTitle())) {
 								newQuiz.setActive(quiz.getActive());
 								newQuiz.setExaminationType(quiz.getExaminationType());
 								newQuiz.setQuestions(quiz.getQuestions());
@@ -86,10 +97,12 @@ public class QuizServiceIMPL implements QuizService{
 								newQuiz.setQuizMaxMarks(quiz.getQuizMaxMarks());
 								newQuiz.setQuizNoOfQuestions(quiz.getQuizNoOfQuestions());
 								newQuiz.setQuizTitle(quiz.getQuizTitle());
+								newQuiz.setNoOfAttempts(quiz.getNoOfAttempts());
+
 								examinationCategory.setQuizzes(examinationCategory.getQuizzes());
 								examination.setExaminationCategories(examination.getExaminationCategories());
 								user.setExaminations(user.getExaminations());
-								Quiz newCreatedQuiz=quizRepository.save(newQuiz);
+								Quiz newCreatedQuiz = quizRepository.save(newQuiz);
 								examCategoryRepository.save(examinationCategory);
 								examinationRepository.save(examination);
 								userRepository.save(user);
@@ -100,53 +113,70 @@ public class QuizServiceIMPL implements QuizService{
 				}
 			}
 		}
-
+//	}
 		return null;
 	}
+
 	@Override
-	public void deleteQuiz(String quizName, String examCategoryName, String examName) {
+	public void deleteQuiz(String quizName, String examCategoryName, String examName) throws Exception {
 		// TODO Auto-generated method stub
+		int count = 0;
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
-		Set<Examination> examinations=user.getExaminations();
+		Set<Examination> examinations = user.getExaminations();
+
 		for (Examination examination : examinations) {
-			if(examination.getName().equals(examName))
-			{
-				for (ExaminationCategory examinationCategory : examination.getExaminationCategories()) {
-					if(examinationCategory.getCategoryTitle().equals(examCategoryName))
-					{
-						for (Quiz newQuiz : examinationCategory.getQuizzes()) {
-							if(newQuiz.getQuizTitle().equals(quizName))
-							{
-								examinationCategory.getQuizzes().remove(newQuiz);
-								examinationCategory.setQuizzes(examinationCategory.getQuizzes());
-								examination.setExaminationCategories(examination.getExaminationCategories());
-								user.setExaminations(user.getExaminations());
-								quizRepository.delete(newQuiz);
-								examCategoryRepository.save(examinationCategory);
-								examinationRepository.save(examination);
-								userRepository.save(user);
-								break;
+			if (examination.getName().equals(examName)) {
+				count++;
+			}
+		}
+		if (count == 0) {
+			throw new Exception("exam not found");
+		} else {
+
+			for (Examination examination : examinations) {
+				if (examination.getName().equals(examName)) {
+					for (ExaminationCategory examinationCategory : examination.getExaminationCategories()) {
+						if (examinationCategory.getCategoryTitle().equals(examCategoryName)) {
+							for (Quiz newQuiz : examinationCategory.getQuizzes()) {
+								if (newQuiz.getQuizTitle().equals(quizName)) {
+									for (Questions qs : newQuiz.getQuestions()) {
+										questionsRepository.delete(qs);
+									}
+									examinationCategory.getQuizzes().remove(newQuiz);
+									examinationCategory.setQuizzes(examinationCategory.getQuizzes());
+									examination.setExaminationCategories(examination.getExaminationCategories());
+									user.setExaminations(user.getExaminations());
+									quizRepository.delete(newQuiz);
+									examCategoryRepository.save(examinationCategory);
+									examinationRepository.save(examination);
+									userRepository.save(user);
+									break;
+								}
+								else {
+									{
+										continue;
+									}
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-		
+
 	}
+
 	@Override
 	public Set<Quiz> getQuizs(String examCategoryName, String examName) {
 		// TODO Auto-generated method stub
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
-		Set<Examination> examinations=user.getExaminations();
+		Set<Examination> examinations = user.getExaminations();
 		for (Examination examination : examinations) {
-			if(examination.getName().equals(examName))
-			{
+			if (examination.getName().equals(examName)) {
 				for (ExaminationCategory examinationCategorys : examination.getExaminationCategories()) {
-					if(examinationCategorys.getCategoryTitle().equals(examCategoryName))
-					{
+					if (examinationCategorys.getCategoryTitle().equals(examCategoryName)) {
 						return examinationCategorys.getQuizzes();
 					}
 				}
@@ -154,21 +184,19 @@ public class QuizServiceIMPL implements QuizService{
 		}
 		return null;
 	}
+
 	@Override
 	public Quiz getQuiz(String quizName, String examCategoryName, String examName) {
 		// TODO Auto-generated method stub
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
-		Set<Examination> examinations=user.getExaminations();
+		Set<Examination> examinations = user.getExaminations();
 		for (Examination examination : examinations) {
-			if(examination.getName().equals(examName))
-			{
+			if (examination.getName().equals(examName)) {
 				for (ExaminationCategory examinationCategory : examination.getExaminationCategories()) {
-					if(examinationCategory.getCategoryTitle().equals(examCategoryName))
-					{
+					if (examinationCategory.getCategoryTitle().equals(examCategoryName)) {
 						for (Quiz newQuiz : examinationCategory.getQuizzes()) {
-							if(newQuiz.getQuizTitle().equals(quizName))
-							{
+							if (newQuiz.getQuizTitle().equals(quizName)) {
 								return newQuiz;
 							}
 						}
@@ -178,21 +206,19 @@ public class QuizServiceIMPL implements QuizService{
 		}
 		return null;
 	}
+
 	@Override
 	public Set<Questions> getQuestionsOfQuiz(String quizName, String examCategoryName, String examName) {
 		// TODO Auto-generated method stub
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
-		Set<Examination> examinations=user.getExaminations();
+		Set<Examination> examinations = user.getExaminations();
 		for (Examination examination : examinations) {
-			if(examination.getName().equals(examName))
-			{
+			if (examination.getName().equals(examName)) {
 				for (ExaminationCategory examinationCategory : examination.getExaminationCategories()) {
-					if(examinationCategory.getCategoryTitle().equals(examCategoryName))
-					{
+					if (examinationCategory.getCategoryTitle().equals(examCategoryName)) {
 						for (Quiz newQuiz : examinationCategory.getQuizzes()) {
-							if(newQuiz.getQuizTitle().equals(quizName))
-							{
+							if (newQuiz.getQuizTitle().equals(quizName)) {
 								return newQuiz.getQuestions();
 							}
 						}
@@ -202,23 +228,21 @@ public class QuizServiceIMPL implements QuizService{
 		}
 		return null;
 	}
+
 	@Override
 	public Set<Questions> getQuestionOfQuiz(String quizId) {
 		// TODO Auto-generated method stub
-		Optional<Quiz> newQuiz=quizRepository.findById(quizId);
-		Quiz quiz=newQuiz.orElseThrow();
+		Optional<Quiz> newQuiz = quizRepository.findById(quizId);
+		Quiz quiz = newQuiz.orElseThrow();
 		return quiz.getQuestions();
 	}
+
 	@Override
 	public Quiz getExactQuiz(String quizId) {
 		// TODO Auto-generated method stub
-		Optional<Quiz> newQuiz=quizRepository.findById(quizId);
-		Quiz quiz=newQuiz.orElseThrow();
+		Optional<Quiz> newQuiz = quizRepository.findById(quizId);
+		Quiz quiz = newQuiz.orElseThrow();
 		return quiz;
 	}
-
-
-	
-
 
 }

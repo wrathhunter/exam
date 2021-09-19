@@ -30,6 +30,34 @@ public class Questions {
 	private String option4;
 	private String answer;
 	private String quizmaxmarks;
+	private String createrId;
+	public String getCategoryIdOfTheQuestion() {
+		return categoryIdOfTheQuestion;
+	}
+	public void setCategoryIdOfTheQuestion(String categoryIdOfTheQuestion) {
+		this.categoryIdOfTheQuestion = categoryIdOfTheQuestion;
+	}
+	private String quizIdOfTheQuestion;
+	private String examIdOfTheQuestion;
+	private String categoryIdOfTheQuestion;
+	public String getExamIdOfTheQuestion() {
+		return examIdOfTheQuestion;
+	}
+	public void setExamIdOfTheQuestion(String examIdOfTheQuestion) {
+		this.examIdOfTheQuestion = examIdOfTheQuestion;
+	}
+	public String getQuizIdOfTheQuestion() {
+		return quizIdOfTheQuestion;
+	}
+	public void setQuizIdOfTheQuestion(String quizIdOfTheQuestion) {
+		this.quizIdOfTheQuestion = quizIdOfTheQuestion;
+	}
+	public String getCreaterId() {
+		return createrId;
+	}
+	public void setCreaterId(String createrId) {
+		this.createrId = createrId;
+	}
 	@Transient
 	private String givenanswer;
 	public String getGivenanswer() {

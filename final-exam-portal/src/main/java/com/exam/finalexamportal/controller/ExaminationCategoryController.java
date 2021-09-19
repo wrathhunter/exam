@@ -3,6 +3,7 @@ package com.exam.finalexamportal.controller;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,9 +39,9 @@ public class ExaminationCategoryController {
 		ExaminationCategory updatedExamCategory=examinationCategoryService.updateCategory(examCategory, examName);
 		return ResponseEntity.ok(updatedExamCategory);
 	}
-	@DeleteMapping(value = "/deleteexamcategory/{examName}")
-	public ResponseEntity<?> deleteExamCategory(@RequestBody ExaminationCategory examCategory,@PathVariable("examName") String examName) throws Exception {
-		examinationCategoryService.deleteCategory(examCategory, examName);
-		return ResponseEntity.ok("deleted category");
+	@DeleteMapping(value = "/deleteexamcategory/{categoryName}/{examName}")
+	public ResponseEntity<?> deleteExamCategory(@PathVariable("categoryName") String categoryName,@PathVariable("examName") String examName) throws Exception {
+		examinationCategoryService.deleteCategory(categoryName, examName);
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 }

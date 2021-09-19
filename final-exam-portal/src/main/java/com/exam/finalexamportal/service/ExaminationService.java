@@ -11,7 +11,7 @@ import com.exam.finalexamportal.model.exam.Examination;
 public interface ExaminationService {
 	public Examination creatExamination(Examination examination) throws Exception;
 	public Examination updateExamination(Examination examination) throws Exception;
-	public void deleteExamination(Examination examination) throws Exception;
+	public void deleteExamination(String examinationId) throws Exception;
 	public Set<Examination> getExamination();
 	
 }

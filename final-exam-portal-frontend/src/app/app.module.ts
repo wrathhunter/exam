@@ -44,6 +44,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +92,9 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatIconModule,
     MatListModule,
     CKEditorModule,
-    ClipboardModule
+    ClipboardModule,
+
+
   ],
   providers: [AuthInterceptorProviders],
   bootstrap: [AppComponent],

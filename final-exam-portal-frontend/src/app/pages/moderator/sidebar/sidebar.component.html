@@ -5,6 +5,7 @@
     <button mat-list-item routerLink="/moderator-dashboard"><mat-icon mat-list-icon>home</mat-icon>Home</button>
     <button mat-list-item routerLink="/moderator-dashboard/moderator-profile"><mat-icon mat-list-icon>account_circle</mat-icon>Profile</button>
     <button mat-list-item routerLink="/moderator-dashboard/exams"><mat-icon mat-list-icon>home</mat-icon>examinations</button>
+    <button mat-raised-button color="accent" (click)="deleteMyself(user.username)" ><mat-icon mat-list-icon>delete_forever</mat-icon>Delete me from Database</button>
     <!-- <button mat-list-item routerLink="/moderator-dashboard/addexam"><mat-icon mat-list-icon>home</mat-icon>add examination</button> -->
     <!-- <button mat-list-item routerLink="/moderator-dashboard/categories"><mat-icon mat-list-icon>home</mat-icon>categories</button> -->
     <!-- <button mat-list-item routerLink="/moderator-dashboard"><mat-icon mat-list-icon>home</mat-icon>add categorie</button> -->
@@ -12,3 +13,4 @@
     <!-- <button mat-list-item routerLink="/moderator-dashboard"><mat-icon mat-list-icon>home</mat-icon>add quizz</button> -->
   </mat-action-list>
 </mat-card>
+

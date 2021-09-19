@@ -34,5 +34,17 @@ export class ViewquizsComponent implements OnInit {
       }
     );
   }
+  deleteQuiz(quizname:any,categoryname: any,examname:any) {
+    this.quizService.deleteQuiz(quizname,categoryname,examname).subscribe(
+      (data:any) => {
+        this.snack.open('Quiz deleted successfully', '', { duration: 3000, })
+        console.log(data)
+        this.ngOnInit();
+      },
+      (error) => {
+         console.log(error);
+      }
+    );
+  }
 
 }

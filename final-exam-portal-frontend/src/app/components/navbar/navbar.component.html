@@ -1,27 +1,29 @@
-<p>
-  <mat-toolbar>
-    <a routerLink="/" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <!-- <mat-icon>menu_book</mat-icon> -->
-      <div class="imgdiv">
-        <img src="../../../assets/exam-pngrepo-com.png" class="img1" alt="cinque terre" >
-      </div>
-    </a>
-    <span>Online Examination System</span>
-    <span class="example-spacer"></span>
+  <p>
+    <mat-toolbar>
+      <a routerLink="/" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <!-- <mat-icon>menu_book</mat-icon> -->
+        <div class="imgdiv">
+          <img src="../../../assets/exam-pngrepo-com.png" class="img1" alt="cinque terre">
+        </div>
+      </a>
+      <span>Online Examination System</span>
+      <span class="example-spacer"></span>
 
-    <a *ngIf="!isLogedIn" [routerLink]="'/login'" style="margin:9px;" mat-raised-button color="accent"
-      class="btn-block">Login</a>
+      <a *ngIf="!isLogedIn" [routerLink]="'/login'" style="margin:9px;" mat-raised-button color="accent"
+        class="btn-block">Login</a>
 
-    <a *ngIf="!isLogedIn" [routerLink]="'/moderator-signup'" style="margin:9px;" mat-raised-button color="accent"
-      class="btn-block">Examiner Register</a>
+      <a *ngIf="!isLogedIn" [routerLink]="'/moderator-signup'" style="margin:9px;" mat-raised-button color="accent"
+        class="btn-block">Examiner Register</a>
 
-    <a *ngIf="!isLogedIn" [routerLink]="'/signup'" style="margin:9px;" mat-raised-button color="accent"
-      class="btn-block">Student Register</a>
+      <a *ngIf="!isLogedIn" [routerLink]="'/signup'" style="margin:9px;" mat-raised-button color="accent"
+        class="btn-block">Student Register</a>
 
-    <a *ngIf="isLogedIn" style="margin:9px;" mat-raised-button color="accent" class="btn-block">{{user.firstName}}</a>
+      <a *ngIf="isLogedIn" style="margin:9px;" mat-raised-button color="accent" class="btn-block">{{user.firstName}}</a>
 
-    <a (click)="logout()" *ngIf="isLogedIn" style="margin:9px;" mat-raised-button color="accent"
-      class="btn-block">LogOut</a>
+      <a (click)="logout()" *ngIf="isLogedIn" style="margin:9px;" mat-raised-button color="accent"
+        class="btn-block">LogOut</a>
 
-  </mat-toolbar>
-</p>
+    </mat-toolbar>
+  </p>
+
+  

@@ -10,9 +10,6 @@ body {
   color: white;
 }
 
-/* .dots-bg{
-  background-image: url("../assets/dots-bck.png");
-} */
 
 .dots-bg {
   overflow: hidden;
@@ -29,5 +26,26 @@ body {
   background-image: url("../assets/dots-bck.png");
   background-repeat: repeat-x;
   opacity: 0.3;
-  /* mix-blend-mode: color-burn; */
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

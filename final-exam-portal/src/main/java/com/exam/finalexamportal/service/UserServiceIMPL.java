@@ -17,6 +17,12 @@ import com.exam.finalexamportal.model.Role;
 import com.exam.finalexamportal.model.User;
 import com.exam.finalexamportal.model.exam.Examination;
 import com.exam.finalexamportal.model.exam.ExaminationCategory;
+import com.exam.finalexamportal.model.exam.Questions;
+import com.exam.finalexamportal.model.exam.Quiz;
+import com.exam.finalexamportal.repository.ExamCategoryRepository;
+import com.exam.finalexamportal.repository.ExaminationRepository;
+import com.exam.finalexamportal.repository.QuestionsRepository;
+import com.exam.finalexamportal.repository.QuizRepository;
 import com.exam.finalexamportal.repository.RoleRepository;
 import com.exam.finalexamportal.repository.UserRepository;
 
@@ -29,6 +35,14 @@ public class UserServiceIMPL implements UserService {
 	
 	@Autowired
     private RoleRepository roleRepository;
+	@Autowired
+    private ExaminationRepository examinationRepository;
+	@Autowired
+    private ExamCategoryRepository examCategoryRepository;
+	@Autowired
+    private QuizRepository quizRepository;
+	@Autowired
+    private QuestionsRepository questionsRepository;
 	
 	@Autowired
 	private UsersDetailsServiceIMPL userDetailsServiceImpl;
@@ -76,6 +90,43 @@ public class UserServiceIMPL implements UserService {
 		else
 		{
 			userRepository.delete(newUser);
+			for(Role role:newUser.getRoles())
+			{
+				roleRepository.delete(role);
+			}
+			for(Examination exam:newUser.getExaminations())
+			{
+				examinationRepository.delete(exam);
+			}
+			for(Examination exam:newUser.getExaminations())
+			{
+				for(ExaminationCategory cat:exam.getExaminationCategories())
+				{
+					examCategoryRepository.delete(cat);
+				}
+			}
+			for(Examination exam:newUser.getExaminations())
+			{
+				for(ExaminationCategory cat:exam.getExaminationCategories())
+				{
+					for(Quiz quiz:cat.getQuizzes())
+					{
+						quizRepository.delete(quiz);
+					}
+				}
+			}
+			for(Examination exam:newUser.getExaminations())
+			{
+				for(ExaminationCategory cat:exam.getExaminationCategories())
+				{
+					for(Quiz quiz:cat.getQuizzes())
+					{
+						for(Questions question:quiz.getQuestions())
+						{
+							questionsRepository.delete(question);
+						}					}
+				}
+			}
 		}
 	}
 	@Override

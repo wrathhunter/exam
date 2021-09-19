@@ -21,6 +21,8 @@ export class StartComponent implements OnInit {
   quizmaxmarks: any
   quizz: any;
   temp: any
+  noOfAttemptsOnQuizInteger=0;
+  time:any
 
 
 
@@ -50,6 +52,7 @@ export class StartComponent implements OnInit {
       (data: any) => {
         console.log(data)
         this.questions = data
+        this.time=data.length
 
         this.timer = this.questions.length * 2 * 60;
         // if (Array.isArray(this.questions)) {
@@ -95,6 +98,7 @@ export class StartComponent implements OnInit {
         this.marksGot=data.marksGot
         this.correctAnswers=data.correctAnswers
         this.attempted=data.attempted
+        this.noOfAttemptsOnQuizInteger=data.noOfAttemptsOnQuizInteger
         this.isSubmit=true
       },
       (error) => {
