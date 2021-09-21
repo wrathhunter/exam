@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ import com.exam.finalexamportal.repository.QuizRepository;
 import com.exam.finalexamportal.repository.UserRepository;
 import com.exam.finalexamportal.service.QuestionService;
 import com.exam.finalexamportal.service.QuizService;
+import com.exam.finalexamportal.service.UsersDetailsServiceIMPL;
 
 @CrossOrigin
 @RestController
@@ -48,6 +50,8 @@ public class QuizController {
 	ExaminationRepository examinationRepository;
 	@Autowired
 	ExamCategoryRepository examCategoryRepository;
+	@Autowired
+	private UsersDetailsServiceIMPL userDetailsServiceImpl;
 
 	@PostMapping(value = "/createquiz/{examCategoryName}/{examName}")
 	public ResponseEntity<?> createQuiz(@RequestBody Quiz quiz,
@@ -113,6 +117,13 @@ public class QuizController {
 
 	@PostMapping(value = "/evalquiz")
 	public ResponseEntity<?> evalQuiz(@RequestBody List<Questions> questions) throws Exception {
+		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+		User loggedinuser = (User) this.userDetailsServiceImpl.loadUserByUsername(principal);
+//		if(loggedinuser.getIdOfAppearedQuizes()==null)
+//		{
+//			loggedinuser.setIdOfAppearedQuizes();
+//		}
+		
 		Double marksGot = (double) 0;
 		Integer correctAnswers = 0;
 		Integer attempted = 0;
@@ -128,6 +139,11 @@ public class QuizController {
 			categoryId = q.getCategoryIdOfTheQuestion();
 			break;
 		}
+		loggedinuser.getIdOfAppearedQuizes().add(quizId);
+		loggedinuser.setIdOfAppearedQuizes(loggedinuser.getIdOfAppearedQuizes());
+		userRepository.save(loggedinuser);
+		
+
 		Optional<Quiz> quizOptional = quizRepository.findById(quizId);
 		Quiz quiz = quizOptional.orElseThrow();
 		if (quiz.getNoOfAttempts() == null) {

@@ -41,6 +41,7 @@ import { StartComponent } from './pages/user/start/start.component';
 import { UsersidebarComponent } from './pages/user/usersidebar/usersidebar.component';
 import { UserwelcomeComponent } from './pages/user/userwelcome/userwelcome.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { NgxUiLoaderModule,NgxUiLoaderRouterModule, NgxUiLoaderHttpModule } from "ngx-ui-loader";
 
 
 
@@ -93,6 +94,10 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     MatListModule,
     CKEditorModule,
     ClipboardModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderRouterModule,
+    NgxUiLoaderHttpModule.forRoot({ showForeground: true })
+
 
 
   ],

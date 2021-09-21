@@ -2,9 +2,11 @@ package com.exam.finalexamportal.model;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
@@ -37,9 +39,17 @@ public class User implements UserDetails {
 	@Size(max = 50)
 	@Email
 	private String email;
+
+	public List<String> getIdOfAppearedQuizes() {
+		return idOfAppearedQuizes;
+	}
+	public void setIdOfAppearedQuizes(List<String> idOfAppearedQuizes) {
+		this.idOfAppearedQuizes = idOfAppearedQuizes;
+	}
 	private String phoneNo;
 	private boolean enabled=true;
 	private String profile;
+	private List<String> idOfAppearedQuizes=new ArrayList<String>();
 	@DBRef
 	private Set<Role> roles = new HashSet<>();
 	

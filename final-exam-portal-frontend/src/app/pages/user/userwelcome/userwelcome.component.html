@@ -1,1 +1,16 @@
-<p>userwelcome works!</p>
+<p>Quizes already appeared</p>
+<mat-card *ngFor="let l of listOfQuizes; let i = index"  class="mt20">
+  <mat-card-content>
+    <p>
+      <b> No {{ i + 1 }})</b>
+      <span class="ml20" [innerHTML]="l"></span>
+    </p>
+  </mat-card-content>
+
+  <mat-card *ngFor="let q of quizzes" class="mt20">
+    <mat-card-content>
+      <p>
+        <span class="ml20" [innerHTML]="q.quizTitle"></span>
+      </p>
+
+    </mat-card-content>
