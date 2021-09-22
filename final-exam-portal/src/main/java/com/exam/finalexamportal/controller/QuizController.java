@@ -114,6 +114,12 @@ public class QuizController {
 		Quiz quiz = quizService.getExactQuiz(quizid);
 		return ResponseEntity.ok(quiz);
 	}
+	
+	@GetMapping(value = "/getquizzesofcreater/{createrid}")
+	public ResponseEntity<?> getquizzesofcreater(@PathVariable("createrid") String createrid) {
+		List<Quiz> quizList = quizService.getCreatersQuizzes(createrid);
+		return ResponseEntity.ok(quizList);
+	}
 
 	@PostMapping(value = "/evalquiz")
 	public ResponseEntity<?> evalQuiz(@RequestBody List<Questions> questions) throws Exception {

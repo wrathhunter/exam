@@ -33,6 +33,14 @@ public class Quiz {
 	private Integer quizMaxMarks;
 	private Integer quizNoOfQuestions;
 	private Integer noOfAttempts;
+	private String createrId;
+	public String getCreaterId() {
+		return createrId;
+	}
+
+	public void setCreaterId(String createrId) {
+		this.createrId = createrId;
+	}
 
 	@DBRef
 	private ExaminationType examinationType;

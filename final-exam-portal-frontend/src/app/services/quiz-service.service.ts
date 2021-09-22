@@ -30,4 +30,9 @@ export class QuizServiceService {
     return this._http.delete(`${baseUrl}/quiz/deletequiz/${quizName}/${categoryName}/${examName}`);
   }
 
+
+  public getQuizzesofCreater(createrid:any)
+  {
+    return this._http.get(`${baseUrl}/quiz/getquizzesofcreater/${createrid}`);
+  }
 }

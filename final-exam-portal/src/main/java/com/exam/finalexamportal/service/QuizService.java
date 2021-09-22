@@ -1,5 +1,6 @@
 package com.exam.finalexamportal.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -19,5 +20,6 @@ public interface QuizService {
 	public Set<Questions> getQuestionsOfQuiz(String quizName, String examCategoryName, String examName);
 	public Set<Questions> getQuestionOfQuiz(String quizId);
 	public Quiz getExactQuiz(String quizId);
+	public List<Quiz> getCreatersQuizzes(String createrId);
 //	public Quiz getQuizFromQuestions(String questionId);
 }

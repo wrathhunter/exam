@@ -42,6 +42,7 @@ import { UsersidebarComponent } from './pages/user/usersidebar/usersidebar.compo
 import { UserwelcomeComponent } from './pages/user/userwelcome/userwelcome.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import { NgxUiLoaderModule,NgxUiLoaderRouterModule, NgxUiLoaderHttpModule } from "ngx-ui-loader";
+import{WelcomeComponent} from'./pages/moderator/welcome/welcome.component';
 
 
 
@@ -71,7 +72,8 @@ import { NgxUiLoaderModule,NgxUiLoaderRouterModule, NgxUiLoaderHttpModule } from
     UserDashboardComponent,
     StartComponent,
     UsersidebarComponent,
-    UserwelcomeComponent
+    UserwelcomeComponent,
+    WelcomeComponent
 
 
 

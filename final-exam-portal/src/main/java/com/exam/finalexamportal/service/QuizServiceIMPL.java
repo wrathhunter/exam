@@ -1,5 +1,7 @@
 package com.exam.finalexamportal.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -47,6 +49,7 @@ public class QuizServiceIMPL implements QuizService {
 					if (examinationCategory.getCategoryTitle().equals(examCategoryName)) {
 						Quiz newQuiz = new Quiz(quiz.getActive(), quiz.getQuizTitle(), quiz.getQuizDescription(),
 								quiz.getQuizMaxMarks(), quiz.getQuizNoOfQuestions(), quiz.getExaminationType());
+						newQuiz.setCreaterId(user.getId());
 						examinationCategory.getQuizzes().add(newQuiz);
 						examinationCategory.setQuizzes(examinationCategory.getQuizzes());
 						examination.getExaminationCategories().add(examinationCategory);
@@ -243,6 +246,22 @@ public class QuizServiceIMPL implements QuizService {
 		Optional<Quiz> newQuiz = quizRepository.findById(quizId);
 		Quiz quiz = newQuiz.orElseThrow();
 		return quiz;
+	}
+
+	@Override
+	public List<Quiz> getCreatersQuizzes(String createrId) {
+		// TODO Auto-generated method stub
+		Optional<User> userOptional=userRepository.findById(createrId);
+		User user=userOptional.orElseThrow();
+		List<Quiz> quizList = new ArrayList<>();
+		for(Quiz quiz:quizRepository.findAll())
+		{
+			if(quiz.getCreaterId().equals(createrId))
+			{
+				quizList.add(quiz);
+			}
+		}
+		return quizList;
 	}
 
 }
