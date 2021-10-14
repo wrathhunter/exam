@@ -87,3 +87,12 @@ body{
   }
 }
 
+.fwc-bold{
+  font-weight:500;
+  font-size: 20px;
+}
+.im{
+  height:300px;
+  width:300px;
+  border-radius:50%;
+}

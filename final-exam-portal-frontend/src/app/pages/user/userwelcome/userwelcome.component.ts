@@ -21,13 +21,11 @@ export class UserwelcomeComponent implements OnInit {
     for (var val of this.listOfQuizes) {
       this.quiz.getQuiz(val).subscribe(
         (data: any) => {
-          //css
           this.quizzes.push(data);
           console.log(this.quizzes);
         },
 
         (error) => {
-          //
           console.log(error);
         }
       );

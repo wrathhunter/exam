@@ -1,16 +1,27 @@
 <p>Quizes already appeared</p>
-<mat-card *ngFor="let l of listOfQuizes; let i = index"  class="mt20">
-  <mat-card-content>
-    <p>
-      <b> No {{ i + 1 }})</b>
-      <span class="ml20" [innerHTML]="l"></span>
-    </p>
-  </mat-card-content>
-
-  <mat-card *ngFor="let q of quizzes" class="mt20">
+<mat-card *ngFor="let l of listOfQuizes; let i = index" class="mt20">
+  <div class="row">
+    <div>
+      <mat-card-content>
+        <b> No {{ i + 1 }})</b>
+        <span class="ml20">{{l}}</span>
+        <p>{{l.quizTitle}}</p>
+      </mat-card-content>
+    </div>
+    <div>
+    <!-- <mat-card *ngFor="let q of quizzes" class="mt20">
     <mat-card-content>
       <p>
         <span class="ml20" [innerHTML]="q.quizTitle"></span>
       </p>
-
     </mat-card-content>
+    </mat-card> -->
+    </div>
+  </div>
+
+
+</mat-card>
+
+
+
+<!-- [innerHTML]="l" -->

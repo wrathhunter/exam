@@ -33,6 +33,10 @@
                         placeholder="Phone Number">
                 </mat-form-field>
 
+                <mat-form-field class="signup-full-width">
+                  <input required [(ngModel)]="user.profile" name="pic" matInput placeholder="Profile Image link">
+                </mat-form-field>
+
             </mat-card-content>
 
             <button type="submit" mat-raised-button color="accent" class="btn-block">Register</button>

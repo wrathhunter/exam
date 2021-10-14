@@ -11,6 +11,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SignupComponent implements OnInit {
 
+
+
+
   errorMessage: string | undefined;
   successMessage: string | undefined;
 
@@ -26,6 +29,7 @@ export class SignupComponent implements OnInit {
     email: '',
     phoneNo: '',
     enabled:'true',
+    profile:''
   }
 
   ngOnInit(): void {

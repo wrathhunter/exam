@@ -12,8 +12,8 @@ export class SignupModeratorComponent implements OnInit {
   successMessage: string | undefined;
 
   constructor(private UserService: UserService,private _snackBar: MatSnackBar) { }
- 
- 
+
+
 
   public user = {
     username: '',
@@ -23,10 +23,11 @@ export class SignupModeratorComponent implements OnInit {
     email: '',
     phoneNo: '',
     enabled:'true',
+    profile:''
   }
 
   ngOnInit(): void {
-    
+
   }
 
   formSubmit() {

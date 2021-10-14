@@ -40,7 +40,13 @@
           <input required [(ngModel)]="user.phoneNo" name="phoneNo" type="number" matInput placeholder="Phone Number">
         </mat-form-field>
 
+        <mat-form-field class="signup-full-width">
+          <input required [(ngModel)]="user.profile" name="pic" matInput placeholder="Profile Image link">
+        </mat-form-field>
+
       </mat-card-content>
+
+
 
       <button type="submit" mat-raised-button color="accent" class="btn-block">Register</button>
       <button style="margin-bottom: 3%" mat-raised-button color="accent" class="btn-block">clear</button>

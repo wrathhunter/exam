@@ -1,23 +1,26 @@
+<mat-card-title>Your Profile Details</mat-card-title>
+<br>
 <mat-card *ngIf="user">
-  <h1>Your Profile Details</h1>
+
   <!-- {{ user | json }} -->
   <mat-card-content>
     <div class="bootstrap-wrapper">
       <div class="container">
         <div class="container text-center">
-          <img
-            src="https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg"
+          <img  class="im profile-image"
+          [src]="user.profile"
             alt=""
-            class="profile-image"
           />
+
+
 
           <h1 class="mt20">{{ user.firstName }} {{ user.lastName }}</h1>
         </div>
 
-        <div class="row">
-          <div class="col-md-10 offset-md-1">
+        <!-- <div class="row"> -->
+          <div class="col-md-6 offset-md-1">
             <!-- //table Details  -->
-            <table class="table text-center">
+            <!-- <table class="table text-center">
               <tr>
                 <td>Username</td>
                 <td>{{ user.username }}</td>
@@ -34,9 +37,23 @@
                 <td>Status</td>
                 <td>{{ user.enabled ? "ACTIVE" : "NOTACTIVE" }}</td>
               </tr>
-            </table>
+            </table> -->
+            <div class='d-flex flex-column justify-content-center  mt-4'>
+              <div class='my-3 fwc-bold'>
+                Username : {{ user.username }}
+              </div>
+              <div class='my-3 fwc-bold'>
+                Phone : {{ user.phoneNo }}
+              </div>
+              <div class='my-3 fwc-bold'>
+                Role : {{ user.authorities[0].authority }}
+              </div>
+              <div class='my-3 fwc-bold'>
+                Status : {{ user.enabled ? "ACTIVE" : "NOTACTIVE" }}
+              </div>
+            </div>
           </div>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
   </mat-card-content>

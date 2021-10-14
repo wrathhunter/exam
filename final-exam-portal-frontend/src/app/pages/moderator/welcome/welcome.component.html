@@ -1,20 +1,40 @@
-<p>Sir, till date you have following stats on your account!</p>
-<div>Total no of exams:{{examinations}}</div>
-<div>Total no of categories:{{categories}}</div>
-<div>Total no of quizzes:{{quizs}}</div>
 
 <div>
+
+<mat-card-title>Sir, till date you have following stats on your account!</mat-card-title>
+<br>
+<mat-card>
+<div class='fwc-bold'>Total no of exams:{{examinations}}</div>
+<div class='fwc-bold'>Total no of categories:{{categories}}</div>
+<div class='fwc-bold'>Total no of quizzes:{{quizs}}</div>
+</mat-card>
+</div>
+
+<br>
+<div>
+  <mat-card-title>Popularity of Quizs</mat-card-title>
+  <br>
+  <mat-card>
+    <p class='fwc-bold'>most popular quiz :{{mostfavquiztitle}}</p>
+    <p class='fwc-bold'>least popular quiz :{{leastfavquiztitle}}</p>
+  </mat-card>
+</div>
+<br>
+<div>
+  <mat-card-title>Details of Quiz</mat-card-title>
   <mat-card *ngFor="let q of creatersQuizzes; let i = index" class="mt20">
     <mat-card-content>
+
       <p>
-        <b> No {{ i + 1 }})</b>
-        <span class="ml20" [innerHTML]="q.quizTitle"></span>
+        <!-- <b> No {{ i + 1 }})</b> -->
+        <!-- <span class="ml20" [innerHTML]="q.quizTitle"></span> -->
       </p>
 
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
-            <p>No of attempts: {{ q.noOfAttempts }}</p>
+            <p class='fwc-bold'>Quiz:{{ q.quizTitle }}</p>
+            <p class='fwc-bold'>Total no of attempts made: {{ q.noOfAttempts }}</p>
           </div>
         </div>
       </div>
@@ -22,5 +42,6 @@
 
   </mat-card>
 </div>
-<h1>most popular quiz :{{mostfavquiztitle}}</h1>
-<h1>least popular quiz :{{leastfavquiztitle}}</h1>
+
+
+
